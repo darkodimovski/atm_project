@@ -33,6 +33,7 @@ function Form(props) {
   } = props;
 
 
+
   /* const [options, setOptions] = useState([""]); */
   const [data, setData] = useState([]);
   const [model, setModel] = useState([])
@@ -137,7 +138,7 @@ function Form(props) {
             <input type="date" id="datum-realizacije" placeholder="Datum realizacije" onChange={onDatumZahtjevaChange} value={datumZahtjeva} />
             <br />
             <br />
-            <input id="opis-radova" placeholder="Opis radova" onChange={onOpisRadovaChange} value={opisRadova} />
+            <textarea id="opis-radova" name="w3review" placeholder="Opis radova" onChange={onOpisRadovaChange} value={opisRadova} rows="5" cols="20" />
             <br />
             <br />
             <label htmlFor="select">Izaberi model</label>
@@ -160,7 +161,7 @@ function Form(props) {
             </select>
             <br />
             <br />
-            <button type="button" value="Submit" onClick={onSubmit}>Zadaj Nalog</button>
+            <button type="button" value="Submit" onClick={onSubmit} disabled={!tid || !sn}>Zadaj Nalog</button>
           </form>
     </div>
   )
