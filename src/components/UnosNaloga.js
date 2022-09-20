@@ -16,7 +16,7 @@ export const UnosNaloga = () => {
     const [mjesto, setMjesto] = useState('');
     const [clients, setClients] = useState();
     const [kontakt, setKontakt] = useState('');
-
+    const [izvodjacis, setIzvodjacis] = useState();
 
     const date = new Date();
     const newDate = date.toISOString().slice(0, 10);
@@ -34,7 +34,7 @@ export const UnosNaloga = () => {
     const onDatumZahtjevaChange = e => setDatumZahtjeva(e.target.value);
     const onClientsChange = e => setClients(e.target.value);
     const onKontaktChange = e => setKontakt(e.target.value)
-
+    const onIzvodjacisChange = e => setIzvodjacis(e.target.value)
 
 
   const onSubmit = e => {
@@ -54,6 +54,8 @@ export const UnosNaloga = () => {
     setDatumZahtjeva(newDate);
     setClients();
     setKontakt('');
+    setIzvodjacis();
+    
   };
 
   const data = { 
@@ -67,7 +69,8 @@ export const UnosNaloga = () => {
     mjesto,
     datumZahtjeva,
     clients: [{id: clients}],
-    kontakt
+    kontakt,
+    izvodjacis: [{id: izvodjacis}]
   };
 
   
@@ -98,6 +101,7 @@ export const UnosNaloga = () => {
           datumZahtjeva={datumZahtjeva}
           clients={clients}
           kontakt={kontakt}
+          izvodjacis={izvodjacis}
           onTidChange={onTidChange} 
           onTipAkcijeChange={onTipAkcijeChange}
           onSubmit={onSubmit}
@@ -111,6 +115,7 @@ export const UnosNaloga = () => {
           onDatumZahtjevaChange={onDatumZahtjevaChange}
           onClientsChange={onClientsChange}
           onKontaktChange={onKontaktChange}
+          onIzvodjacisChange={onIzvodjacisChange}
         />
     </div>
   )
