@@ -95,12 +95,12 @@ function Form(props) {
 
   return (
     <div className='flex items-center justify-center pl-3 pr-3'>
-          <form className="dark:bg-gray-600 shadow-md rounded-xl w-full max-w-lg p-20">
+          <form className="dark:bg-gray-700 shadow-md rounded-xl w-full max-w-lg p-20">
             <h1 className='flex justify-center text-white font-mono mb-3 text-xl'>Unesi nalog</h1>
             { error && tid.length <= 0  ? 
             <label htmlFor="tid">TID can't be empty</label> : ''}
               <input 
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
                 id="tid" 
                 placeholder="Unesi TID" 
                 onChange={onTidChange} 
@@ -109,7 +109,7 @@ function Form(props) {
             { error && sn.length <= 0  ? 
               <label htmlFor="tid">Serial number can't be empty</label> : ''}
               <input 
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
                 id="sn" 
                 placeholder="Serijski Broj" 
                 onChange={onSnChange} 
@@ -117,7 +117,7 @@ function Form(props) {
               />
               <select 
                 onChange={onClientsChange} 
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600">
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600">
                 <option>Odaberi klijenta</option>
               { client?.map((cli) => (
                         <option key={cli.id} value={cli.id}>{cli.attributes.NAZIV_KLIJENTA}</option>
@@ -125,7 +125,7 @@ function Form(props) {
               </select>
               <select 
                 onChange={onIzvodjacisChange} 
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600">
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600">
                 <option>Odaberi izvođača</option>
               { tplista?.map((tp) => (
                         <option key={tp.id} value={tp.id}>{tp.attributes.naziv}</option>
@@ -134,7 +134,7 @@ function Form(props) {
             { error && mjesto.length <= 0  ? 
             <label htmlFor="tid">Mjesto can't be empty</label> : ''}
             <input 
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
               id="mjesto" 
               placeholder="Mjesto" 
               onChange={onMjestoChange} 
@@ -143,21 +143,21 @@ function Form(props) {
             { error && adresa.length <= 0  ? 
             <label htmlFor="tid">Adresa can't be empty</label> : ''}
             <input 
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
               id="adresa" 
               placeholder="Adresa" 
               onChange={onAdresaChange} 
               value={adresa} 
             />
             <input 
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
               id="mikrolokacija" 
               placeholder="Mikrolokacija" 
               onChange={onMikrolokacijaChange} 
               value={mikrolokacija} 
             />
             <input 
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
               id="kontakt" 
               placeholder="Kontakt" 
               onChange={onKontaktChange} 
@@ -165,7 +165,7 @@ function Form(props) {
             />
             <label className='flex justify-center text-white font-mono mb-3' htmlFor="date">Datum zahtjeva:</label>
             <input 
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
               type="date" id="datum-realizacije" 
               placeholder="Datum realizacije" 
               onChange={onDatumZahtjevaChange} 
@@ -177,17 +177,17 @@ function Form(props) {
                 placeholder="Opis radova" 
                 onChange={onOpisRadovaChange} 
                 value={opisRadova} 
-                className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 h-40 dark:border-gray-600"
+                className="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 h-40 dark:border-gray-600"
               />
             <select 
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" 
               onChange={onModelChange}>
               <option>Izaberi model</option>
             { model?.map((name) => (
                       <option key={name.id} value={name.id}>{name.attributes.model}</option>
                       ))}
             </select>
-            <select  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" onChange={onTipAkcijeChange}>
+            <select  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:placeholder-gray-100 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3 dark:border-gray-600" onChange={onTipAkcijeChange}>
             <option>Odaberi akciju</option>
             { data?.map((akc) => (
                       <option key={akc.id} value={akc.id}>{akc.attributes.tipakcije}</option>
@@ -202,6 +202,7 @@ function Form(props) {
               >
                 Zadaj Nalog
             </button>
+            
           </form>
     </div>
   )
