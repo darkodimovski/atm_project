@@ -1,9 +1,10 @@
 import React from 'react'
 import {useState, useEffect} from 'react';
 
-
 export const ListaNaloga = () => {
   const [listaNaloga, setListaNaloga] = useState();
+
+
 
   function update() {
     fetch('http://localhost:1337/api/tests?populate=*')
@@ -17,111 +18,126 @@ export const ListaNaloga = () => {
     update();
   }, [])
 
-console.log(listaNaloga)
-  return (
-    <table className='table-auto border-b'>
-      <thead>
-        <tr>
-          <th className='w-32'>TID</th>
-          <th className='w-32'>Serijski broj</th>
-          <th className='w-32'>Klijent</th>
-          <th className='w-32'>Izvođač</th>
-          <th className='w-32'>Model ATM</th>
-          <th className='w-32'>Tip akcije</th>
-        </tr>
-      </thead>
-      <tbody>
-          {listaNaloga?.map(list => {
-            return (
-              <tr key={list.id}>           
-                  <td className='flex'>{list.attributes.tid}</td>
-                  <td className='flex'>{list.attributes.sn}</td>
-                <td>
-                  {list.attributes.clients.data.map(client => {
-                      return (
-                        <ul key={client.id}>
-                          <li className='flex justify-center'>{client.attributes.NAZIV_KLIJENTA}</li>
-                        </ul>
-                        )
-                    })}
-                </td>
-                <td>
-                  {list.attributes.izvodjacis.data.map(tp => {
-                      return (
-                        <ul key={tp.id}>
-                          <li className='flex justify-center'>{tp.attributes.naziv}</li>
-                        </ul>
-                        )
-                    })}
-                </td>
-                <td>
-                  {list.attributes.model_atms.data.map(model => {
-                      return (
-                        <ul key={model.id}>
-                          <li className='flex justify-center'>{model.attributes.model}</li>
-                        </ul>
-                        )
-                    })}
-                </td>
-                <td>
-                  {list.attributes.tipakcijes.data.map(akcija => {
-                      return (
-                        <ul key={akcija.id}>
-                          <li>{akcija.attributes.tipakcije}</li>
-                        </ul>
-                        )
-                    })}
-                </td>
-              </tr>
-            )
-          })}
-        
 
-      </tbody>
-     {/*  {listaNaloga?.map(list => {
-        return(
-          <ul key={list.id}>
-            <li>Tid: {list.attributes.tid}</li>
-            <li>Serijski broj: {list.attributes.sn}</li>
-            {list.attributes.clients.data.map(client => {
-              return (
-                <ul key={client.id}>
-                  <li>Klijent: {client.attributes.NAZIV_KLIJENTA}</li>
-                </ul>
-              )
-            })}
-            {list.attributes.izvodjacis.data.map(tp => {
-              return (
-                <ul key={tp.id}>
-                  <li>Izvođač: {tp.attributes.naziv}</li>
-                </ul>
-              )
-            })}
-            {list.attributes.model_atms.data.map(model => {
-              return (
-                <ul key={model.id}>
-                  <li>ModelATM: {model.attributes.model}</li>
-                </ul>
-              )
-            })}
-            {list.attributes.tipakcijes.data.map(model => {
-              return (
-                <ul key={model.id}>
-                  <li>Tip akcije: {model.attributes.tipakcije}</li>
-                </ul>
-              )
-            })}
-            <li>Mjesto: {list.attributes.mjesto}</li>
-            <li>Adresa: {list.attributes.adresa}</li>
-            <li>Mikrolokacija: {list.attributes.mikrolokacija}</li>
-            <li>Opis radova: {list.attributes.opisRadova}</li>
-            <li>Kontakt: {list.attributes.kontakt}</li>
-            <li>PR: {list.attributes.pr}</li>
-            <li>PO: {list.attributes.po}</li>
-            <li>Datum zahtjeva: {list.attributes.datumZahtjeva}</li>
-          </ul>
-        )
-      })} */}
-    </table>
+  return (
+      <div className="flex flex-col px-2">
+            <div className="overflow-x-auto relative">
+
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      TID
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      Serijski broj
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      Mjesto
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      Adresa
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      Mikrolokacija
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      Model ATM
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      Klijent
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      Izvođač
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      opis radova
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      tip akcije
+                    </th>
+                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">
+                      zahtjev kreiran
+                    </th>
+                   </tr>
+                  </thead>
+
+               <tbody>
+                {
+                  listaNaloga?.map(nalog => {
+                    return(
+                      <tr key={nalog.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td className="py-4 px-6">
+                          {nalog.attributes.tid}
+                        </td>
+                        <td className="py-4 px-6">
+                          {nalog.attributes.sn}
+                        </td>
+                        <td className="py-4 px-6">
+                          {nalog.attributes.mjesto}
+                        </td>
+                        <td className="py-4 px-6">
+                          {nalog.attributes.adresa}
+                        </td>
+                        <td className="py-4 px-6">
+                          {nalog.attributes.mikrolokacija}
+                        </td>
+                        {
+                          nalog.attributes.model_atms.data.map(model => {
+                            return (
+                              <td className="py-4 px-6" key={model.id}>
+                                {model.attributes.model}
+                              </td>
+                            )
+                          }) 
+                        }
+                        
+                        {
+                          nalog.attributes.clients.data.map(client => {
+                            return (
+                              <td className="py-4 px-6" key={client.id}>
+                                {client.attributes.NAZIV_KLIJENTA}
+                              </td>
+                            )
+                          }) 
+                        }
+
+                        {
+                          nalog.attributes.izvodjacis.data.map(tp => {
+                            return (
+                              <td className="py-4 px-6" key={tp.id}>
+                                {tp.attributes.naziv}
+                              </td>
+                            )
+                          }) 
+                        }
+                         <td className="py-4 px-6">
+                          {nalog.attributes.opisRadova}
+                        </td>
+                        {
+                          nalog.attributes.tipakcijes.data.map(akcija => {
+                            return (
+                              <td className="py-4 px-6" key={akcija.id}>
+                                {akcija.attributes.tipakcije}
+                              </td>
+                            )
+                          }) 
+                        }
+                        
+                        <td className="py-4 px-6">
+                          {nalog.attributes.datumZahtjeva}
+                        </td>
+                      </tr>
+                    )
+                  })
+                }
+                
+              </tbody>
+              
+          </table>
+    
+        </div>
+      
+      </div>
   )
-}
+};
