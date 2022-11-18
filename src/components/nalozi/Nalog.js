@@ -3,10 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 
-
 const Nalog = () => {
   const { id } = useParams();
   const [nalog, setNalog] = useState();
+
 
 
   useEffect(() => {
@@ -21,6 +21,7 @@ const Nalog = () => {
 
 
   return (
+  
     <div className="container py-4">
       <Link className="btn btn-primary" to="/">
         back to Lista naloga
@@ -35,7 +36,7 @@ const Nalog = () => {
         <li className="list-group-item">MJESTO: {nalog?.attributes.mjesto}</li>
         <li className="list-group-item">ADRESA: {nalog?.attributes.adresa}</li>
         <li className="list-group-item">MIKROLOKACIJA: {nalog?.attributes.mikrolokacija}</li>
-        {
+     {
           nalog?.attributes.model_atms.data.map(model => {
             return (
               <li className="list-group-item" key={model.id}>

@@ -9,18 +9,20 @@ const Home = () => {
   const tableRef = useRef(null);
 
   useEffect(() => {
-    loadUsers();
+    loadNalog();
   }, []);
 
-  const loadUsers = async () => {
+  const loadNalog = async () => {
     const result = await axios.get("http://localhost:1337/api/tests?populate=*");
     setListaNaloga(result.data.data);
   };
 
   const deleteUser = async id => {
     await axios.delete(`http://localhost:1337/api/tests/${id}?populate=*`);
-    loadUsers();
+    loadNalog();
   };
+
+
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
@@ -29,9 +31,6 @@ const Home = () => {
   })
 
 
-
-
-console.log(listaNaloga)
 
   return (
     <div className="container-xl">
@@ -45,7 +44,7 @@ console.log(listaNaloga)
               <th scope="col" className="py-3 px-6">Mjesto</th>
               <th scope="col" className="py-3 px-6">Adresa</th>
               <th scope="col" className="py-3 px-6">Mikrolokacija</th>
-              <th scope="col" className="py-3 px-6">Model bankomata</th>
+              <th scope="col" className="py-3 px-6">Model ATM</th>
               <th scope="col" className="py-3 px-6">Klijent</th>
               <th scope="col" className="py-3 px-6">Izvođač</th>
               <th scope="col" className="py-3 px-6">Opis radova</th>
@@ -58,15 +57,15 @@ console.log(listaNaloga)
           <tbody>
             {listaNaloga?.map((nalog, index) => (
               <tr key={nalog.id} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{index + 1}</th>
-                <td className="py-2 px-6">{nalog.attributes.tid}</td>
-                <td className="py-2 px-6">{nalog.attributes.sn}</td>
-                <td className="py-2 px-6">{nalog.attributes.mjesto}</td>
-                <td className="py-2 px-6">{nalog.attributes.adresa}</td>
-                <td className="py-2 px-6">{nalog.attributes.mikrolokacija}</td>
+                <th scope="row" className="py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white text-xs">{index + 1}</th>
+                <td className="py-2 px-6 text-xs">{nalog.attributes.tid}</td>
+                <td className="py-2 px-6 text-xs">{nalog.attributes.sn}</td>
+                <td className="py-2 px-6 text-xs">{nalog.attributes.mjesto}</td>
+                <td className="py-2 px-6 text-xs">{nalog.attributes.adresa}</td>
+                <td className="py-2 px-6 text-xs">{nalog.attributes.mikrolokacija}</td>
                 { nalog.attributes.model_atms.data.map(model => {
                       return (
-                        <td key={model.id} className="py-2 px-6">
+                        <td key={model.id} className="py-2 px-6 text-xs">
                           {model.attributes.model}
                         </td>
                         )
@@ -75,7 +74,7 @@ console.log(listaNaloga)
                 {
                   nalog.attributes.clients.data.map(client => {
                     return (
-                      <td key={client.id} className="py-2 px-6">
+                      <td key={client.id} className="py-2 px-6 text-xs">
                         {client.attributes.NAZIV_KLIJENTA}
                       </td>
                     )
@@ -84,35 +83,47 @@ console.log(listaNaloga)
                 {
                   nalog.attributes.izvodjacis.data.map(tp => {
                     return (
-                      <td key={tp.id} className="py-2 px-6">
+                      <td key={tp.id} className="py-2 px-6 text-xs">
                         {tp.attributes.naziv}
                       </td>
                     )
                   }) 
                 }
-                <td className="py-2 px-6">{nalog.attributes.opisRadova}</td>
+                <td className="py-2 px-6 text-xs">{nalog.attributes.opisRadova}</td>
                 {
                   nalog.attributes.tipakcijes.data.map(akcija => {
                     return (
-                      <td key={akcija.id} className="py-2 px-6">
+                      <td key={akcija.id} className="py-2 px-6 text-xs">
                         {akcija.attributes.tipakcije}
                       </td>
                     )
                   }) 
                   }
-                  <td className="py-2 px-6">{nalog.attributes.datumZahtjeva}</td>
-                  { nalog.attributes.status === false ? <td className="py-2 px-6">Closed</td> : <td className="py-2 px-6">Open</td> }
+                  <td className="py-2 px-6 text-xs">{nalog.attributes.datumZahtjeva}</td>
 
+                   {
+                    nalog.attributes.statuses.data.map(status => {
+                      return (
+                        <td key={status.id} className="py-2 px-6 text-xs">
+                          {status.attributes.status}
+                        </td>
+                      )
+                    }) 
+                  } 
+
+                  
                 <td>
                   <Link className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-xs px-2 py-1 text-center mr-2 mb-2" to={`/api/tests/view/${nalog.id}?populate=*`}>
                     View
                   </Link>
+
                   <Link
                     className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-xs px-2 py-1 text-center mr-2 mb-2"
-                    to={`/api/tests/${nalog.id}?populate=*`}
+                    to={`/api/tests/edit/${nalog.id}?populate=*`}
                   >
                     Edit
                   </Link>
+                  
                   <Link to='#'
                     className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-xs px-2 py-1 text-center mr-2 mb-2"
                     onClick={() => deleteUser(nalog.id)}
@@ -126,7 +137,7 @@ console.log(listaNaloga)
         </table>
       </div>
 
-      <button type="button" className="btn btn-outline-primary mr-2" onClick={onDownload}>Export data</button>         
+      <button type="button" className="mx-2 mt-2 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-xs px-2 py-1 text-center mr-2 mb-2" onClick={onDownload}>Export data</button>         
     </div>
   );
 };

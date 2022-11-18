@@ -16,20 +16,7 @@ const EditNalog = () => {
   const [model, setModel] = useState([])
   const [client, setClient] = useState([])
   const [tplista, setTpLista] = useState([]);
-  const [nalog, setNalog] = useState({
-    tid: '',
-    sn: '',
-    clients: '',
-    adresa: '',
-    izvodjacis: '',
-    mikrolokacija: '',
-    opisRadova: '',
-    mjesto: '',
-    kontakt: '',
-    model_atms: '',
-    tipakcijes: '',
-    datumZahtjeva: new Date().toISOString().slice(0, 10),
-  });
+  const [nalog, setNalog] = useState([]);
 
 
   const onInputChange = e => {
@@ -37,9 +24,19 @@ const EditNalog = () => {
   };
 
 
+  useEffect(() => {
+    const getModelData = async () => {
+      await axios.get(`http://localhost:1337/api/tests/${id}?populate=*`).then((res) => {
+        let nalogView = res.data.data;
+        setNalog(nalogView)
+      });
+    };
+    getModelData();
+  }, [id]);
+
+  console.log(nalog)
   const onSubmit = e => {
     e.preventDefault();
-
     const data = {
       tid: nalog.tid,
       sn: nalog.sn,
@@ -55,7 +52,6 @@ const EditNalog = () => {
       tipakcijes: nalog.tipakcijes,
     }
 
-
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -68,6 +64,7 @@ const EditNalog = () => {
       history("/");
   };
 
+
   useEffect(() => {
     const getData = async () => {
       await axios.get(url).then((res) => {
@@ -77,6 +74,7 @@ const EditNalog = () => {
     };
     getData();
   }, []);
+
 
   useEffect(() => {
     const getModelData = async () => {
@@ -110,111 +108,110 @@ const EditNalog = () => {
     };
     getIzvodjacistData();
   }, []);
-  
 
 
   return (
-    <div className="container">
-      <div className="w-75 mx-auto shadow p-5">
-        <h2 className="text-center mb-4">Editiraj nalog</h2>
+    <div className="flex justify-center">
+      <div className="bg-slate-900 p-8 rounded-xl">
         <form onSubmit={e => onSubmit(e)}>
-          <div className="form-group">
+        <div className="mb-1 grow ">
             <input
               type="text"
-              className="form-control form-control-lg"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Unesi tid"
-              name="tid"
+              name='tid'
+              value={nalog?.attributes?.tid || ''}
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-1">
             <input
               type="text"
-              className="form-control form-control-lg"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Unesi serijski broj"
               name="sn"
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-1">
           <select
                 name='clients'
                 onChange={e => onInputChange(e)}
-                className="form-control form-control-lg">
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option>Odaberi klijenta</option>
               { client?.map((cli) => (
                         <option key={cli.id} value={cli.id}>{cli.attributes.NAZIV_KLIJENTA}</option>
                         ))}
           </select>
           </div>
-          <div className="form-group">
+          <div className="mb-1">
               <select
                 name='izvodjacis'
                 onChange={e => onInputChange(e)} 
-                className="form-control form-control-lg">
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option>Odaberi izvođača</option>
               { tplista?.map((tp) => (
                         <option key={tp.id} value={tp.id}>{tp.attributes.naziv}</option>
                         ))}
               </select>
           </div>
-          <div className="form-group">
+          <div className="mb-1">
             <input
               type="text"
-              className="form-control form-control-lg"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Mjesto"
               name="mjesto"
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-1">
             <input
               type="text"
-              className="form-control form-control-lg"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Adresa"
               name="adresa"
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-1">
             <input
               type="text"
-              className="form-control form-control-lg"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Mikrolokacija"
               name="mikrolokacija"
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-1">
             <input
               type="text"
-              className="form-control form-control-lg"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Kontakt"
               name="kontakt"
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-1">
             <input
               type="date"
-              className="form-control form-control-lg"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Datum zahtjeva"
               name="datumZahtjeva"
               onChange={e => onInputChange(e)}
             />
           </div>
-          <div className="form-group">
+          <div className="mb-1">
             <textarea 
                 name="opisRadova" 
                 placeholder="Opis radova" 
                 onChange={e => onInputChange(e)} 
-                className="form-control form-control-lg"
+                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
           </div>
-          <div className="form-group">
+          <div className="mb-1">
             <select
               name='model_atms' 
-              className="form-control form-control-lg"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={e => onInputChange(e)} 
           >
               <option>Izaberi model</option>
@@ -223,11 +220,11 @@ const EditNalog = () => {
                       ))}
             </select>
           </div>
-          <div className="form-group">
+          <div className="mb-1">
           <select
               name='tipakcijes' 
-              className="form-control form-control-lg"
-              onChange={e => onInputChange(e)}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={e => onInputChange(e)} 
           >
             <option>Odaberi akciju</option>
             { akcija?.map((akc) => (
@@ -235,9 +232,10 @@ const EditNalog = () => {
                       ))}
             </select> 
           </div>
-          <button className="btn btn-primary btn-block">Editiraj Nalog</button>
+          <button className="w-full text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 disabled:opacity-40">Editiraj zahtjev</button>
         </form>
       </div>
+
     </div>
   );
 };

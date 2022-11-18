@@ -12,18 +12,19 @@ import Nalog from "./components/nalozi/Nalog";
 
 function App() {
   return (
-      <div className="App">
+      <>
         <Navbar />
+
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/about" exact element={<About />} />
           <Route path="/contact" exact element={<Contact />} />
           <Route path="/nalozi/add" exact element={<AddNalog />} />
-          <Route path="/api/tests/:id"  exact element={<EditNalog />} />
+          <Route path="/api/tests/edit/:id"  exact element={<EditNalog />} />
           <Route path="/api/tests/view/:id" exact element={<Nalog />} />
           <Route element={<NotFound />} />
         </Routes>
-      </div>
+      </>
 
   );
 }
