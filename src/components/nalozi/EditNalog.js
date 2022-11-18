@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 const url = `http://localhost:1337/api/tipakcijes`;
@@ -19,7 +19,7 @@ const EditNalog = () => {
   const [nalog, setNalog] = useState([]);
 
 
-  const onInputChange = e => {
+  const handleEdit = e => {
     setNalog({ ...nalog, [e.target.name]: e.target.value });
   };
 
@@ -34,7 +34,10 @@ const EditNalog = () => {
     getModelData();
   }, [id]);
 
-  console.log(nalog)
+  console.log(nalog?.attributes?.clients?.data)
+
+
+
   const onSubmit = e => {
     e.preventDefault();
     const data = {
@@ -118,36 +121,44 @@ const EditNalog = () => {
             <input
               type="text"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Unesi tid"
+              placeholder='Unesi Tid'
               name='tid'
-              value={nalog?.attributes?.tid || ''}
-              onChange={e => onInputChange(e)}
+              defaultValue={nalog?.attributes?.tid || ''}
+              onChange={e => handleEdit(e)}
             />
           </div>
           <div className="mb-1">
             <input
               type="text"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Unesi serijski broj"
+              placeholder='Unesi Serijski Broj'
               name="sn"
-              onChange={e => onInputChange(e)}
+              defaultValue={nalog?.attributes?.sn || ''}
+              onChange={e => handleEdit(e)}
             />
           </div>
           <div className="mb-1">
           <select
                 name='clients'
-                onChange={e => onInputChange(e)}
+                onChange={e => handleEdit(e)}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option>Odaberi klijenta</option>
-              { client?.map((cli) => (
-                        <option key={cli.id} value={cli.id}>{cli.attributes.NAZIV_KLIJENTA}</option>
-                        ))}
+                <option>
+                  {nalog?.attributes?.clients?.data.map(cl => (
+                    <div key={cl.id}>
+                      {cl.attributes.NAZIV_KLIJENTA}
+                    </div>
+                  ))}
+                </option>
+                  { client?.map((cli) => (
+                  <option key={cli.id} value={cli.id}>{cli.attributes.NAZIV_KLIJENTA}</option>
+                  ))}            
           </select>
+
           </div>
           <div className="mb-1">
               <select
                 name='izvodjacis'
-                onChange={e => onInputChange(e)} 
+                onChange={e => handleEdit(e)} 
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option>Odaberi izvođača</option>
               { tplista?.map((tp) => (
@@ -161,7 +172,7 @@ const EditNalog = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Mjesto"
               name="mjesto"
-              onChange={e => onInputChange(e)}
+              onChange={e => handleEdit(e)}
             />
           </div>
           <div className="mb-1">
@@ -170,7 +181,7 @@ const EditNalog = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Adresa"
               name="adresa"
-              onChange={e => onInputChange(e)}
+              onChange={e => handleEdit(e)}
             />
           </div>
           <div className="mb-1">
@@ -179,7 +190,7 @@ const EditNalog = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Mikrolokacija"
               name="mikrolokacija"
-              onChange={e => onInputChange(e)}
+              onChange={e => handleEdit(e)}
             />
           </div>
           <div className="mb-1">
@@ -188,7 +199,7 @@ const EditNalog = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Kontakt"
               name="kontakt"
-              onChange={e => onInputChange(e)}
+              onChange={e => handleEdit(e)}
             />
           </div>
           <div className="mb-1">
@@ -197,14 +208,14 @@ const EditNalog = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Datum zahtjeva"
               name="datumZahtjeva"
-              onChange={e => onInputChange(e)}
+              onChange={e => handleEdit(e)}
             />
           </div>
           <div className="mb-1">
             <textarea 
                 name="opisRadova" 
                 placeholder="Opis radova" 
-                onChange={e => onInputChange(e)} 
+                onChange={e => handleEdit(e)} 
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
           </div>
@@ -212,7 +223,7 @@ const EditNalog = () => {
             <select
               name='model_atms' 
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              onChange={e => onInputChange(e)} 
+              onChange={e => handleEdit(e)} 
           >
               <option>Izaberi model</option>
             { model?.map((name) => (
@@ -224,7 +235,7 @@ const EditNalog = () => {
           <select
               name='tipakcijes' 
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              onChange={e => onInputChange(e)} 
+              onChange={e => handleEdit(e)} 
           >
             <option>Odaberi akciju</option>
             { akcija?.map((akc) => (
