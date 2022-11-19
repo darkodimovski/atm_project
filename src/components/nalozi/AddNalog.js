@@ -18,7 +18,6 @@ const AddNalog = () => {
     tid: '',
     sn: '',
     clients: '',
-    statuses: '',
     adresa: '',
     izvodjacis: '',
     mikrolokacija: '',
@@ -30,7 +29,7 @@ const AddNalog = () => {
     datumZahtjeva: new Date().toISOString().slice(0, 10),
   });
 
-  const { tid, sn, clients, adresa, izvodjacis, mikrolokacija, opisRadova, mjesto, kontakt, model_atms, tipakcijes, datumZahtjeva, statuses } = nalog;
+  const { tid, sn, clients, adresa, izvodjacis, mikrolokacija, opisRadova, mjesto, kontakt, model_atms, tipakcijes, datumZahtjeva } = nalog;
 
 
   const onInputChange = e => {
@@ -54,7 +53,7 @@ const AddNalog = () => {
       opisRadova: nalog.opisRadova,
       model_atms: nalog.model_atms,
       tipakcijes: nalog.tipakcijes,
-      statuses: nalog.statuses
+
     }
 
 
@@ -75,7 +74,7 @@ const AddNalog = () => {
   const [model, setModel] = useState([])
   const [client, setClient] = useState([])
   const [tplista, setTpLista] = useState([]);
-  const [statusZahtjeva, setStatusZahtjeva] = useState([]);
+  
 
    
 
@@ -89,16 +88,7 @@ const AddNalog = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    const getStatusData = async () => {
-      await axios.get(statusUrl).then((res) => {
-        let statusNaloga = res.data.data;
-        setStatusZahtjeva(statusNaloga)
-        console.log(statusNaloga)
-      });
-    };
-    getStatusData();
-  }, []);
+
 
   useEffect(() => {
     const getModelData = async () => {
@@ -266,7 +256,7 @@ const AddNalog = () => {
                       <option key={akc.id} value={akc.id}>{akc.attributes.tipakcije}</option>
                       ))}
             </select> 
-            <select
+          {/*   <select
               name='statuses'
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               value={statuses}
@@ -277,7 +267,7 @@ const AddNalog = () => {
             { statusZahtjeva?.map((stat) => (
                       <option key={stat.id} value={stat.id}>{stat.attributes.status}</option>
                       ))}
-            </select> 
+            </select>  */}
           </div>
           
           <button className="mt-1 w-full text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 disabled:opacity-40" disabled={!tid}>Kreiraj zahtjev</button>

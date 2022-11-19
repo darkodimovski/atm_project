@@ -50,7 +50,6 @@ const Home = () => {
               <th scope="col" className="py-3 px-6">Opis radova</th>
               <th scope="col" className="py-3 px-6">Tip akcije</th>
               <th scope="col" className="py-3 px-6">Zahtjev kreiran</th>
-              <th scope="col" className="py-3 px-6">Status</th>
               <th scope="col" className="py-3">Action</th>
             </tr>
           </thead>

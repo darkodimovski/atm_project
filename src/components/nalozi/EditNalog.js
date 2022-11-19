@@ -34,7 +34,7 @@ const EditNalog = () => {
     getModelData();
   }, [id]);
 
-  console.log(nalog?.attributes?.clients?.data)
+  console.log(nalog)
 
 
 
@@ -138,33 +138,34 @@ const EditNalog = () => {
             />
           </div>
           <div className="mb-1">
-          <select
-                name='clients'
-                onChange={e => handleEdit(e)}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option>
-                  {nalog?.attributes?.clients?.data.map(cl => (
-                    <div key={cl.id}>
-                      {cl.attributes.NAZIV_KLIJENTA}
-                    </div>
-                  ))}
-                </option>
-                  { client?.map((cli) => (
-                  <option key={cli.id} value={cli.id}>{cli.attributes.NAZIV_KLIJENTA}</option>
-                  ))}            
-          </select>
-
+            <select
+                  name='clients'
+                  onChange={e => handleEdit(e)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              
+                    {nalog?.attributes?.clients?.data.map(cl => (
+                      <option key={cl.id}>
+                        {cl.attributes.NAZIV_KLIJENTA}
+                      </option>
+                    ))}
+              
+              { client?.map((cli) => (
+                      <option key={cli.id} value={cli.id}>{cli.attributes.NAZIV_KLIJENTA}</option>
+                    ))}  
+                        
+            </select>
           </div>
           <div className="mb-1">
-              <select
-                name='izvodjacis'
-                onChange={e => handleEdit(e)} 
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option>Odaberi izvođača</option>
-              { tplista?.map((tp) => (
-                        <option key={tp.id} value={tp.id}>{tp.attributes.naziv}</option>
-                        ))}
-              </select>
+          <select
+                  name='clients'
+                  onChange={e => handleEdit(e)}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              
+                 <option>odaberi</option>
+                      { tplista?.map((cli) => (
+                      <option key={cli.id} value={cli.id}>{cli.attributes.naziv}</option>
+                    ))}     
+            </select>
           </div>
           <div className="mb-1">
             <input

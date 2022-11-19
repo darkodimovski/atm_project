@@ -8,7 +8,6 @@ import NotFound from "./components/pages/NotFound";
 import AddNalog from "./components/nalozi/AddNalog";
 import Nalog from "./components/nalozi/Nalog";
 import EditNalog from "./components/nalozi/EditNalog";
-import { EditNalogNew } from "./components/nalozi/EditNalogNew";
 
 
 function App() {
