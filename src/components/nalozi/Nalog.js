@@ -8,8 +8,7 @@ import axios from "axios";
 const Nalog = () => {
   const { id } = useParams();
   const [nalog, setNalog] = useState();
-  const [picture, setPicture] = useState([]);
-
+ 
 
   useEffect(() => {
     const getModelData = async () => {
@@ -22,21 +21,9 @@ const Nalog = () => {
   }, [id]);
 
 
-  useEffect(() => {
-    const getPicture = async () => {
-      await axios.get(`http://localhost:1337/api/pictures?populate=*`).then((res) => {
-        let nalogPicture = res.data.data;
-        setPicture(nalogPicture)
-      });
-    };
-    getPicture();
-  }, []);
-
-  console.log(picture)
 
 
   return (
-  
     <div className="max-w-lg mx-auto">
         <Link className="btn btn-primary" to="/">
           Back to Lista naloga
@@ -88,20 +75,7 @@ const Nalog = () => {
         <li className="list-group-item mt-2 border-b"><span className="font-bold">Zahtjev kreiran:</span> {nalog?.attributes.datumZahtjeva}</li>
       </ul>
       </div>
-      <select
-              name='slike'
-              onChange={e => setPicture(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              
-          >
-              <option>Izaberi sliku</option>
-                { picture?.map((pic) => (
-                    <option key={pic.id} value={pic.id}>{pic.attributes.Naziv}</option>
-                    
-
-                ))}
-      </select>
-    </div>
+      </div>
   );
 };
 

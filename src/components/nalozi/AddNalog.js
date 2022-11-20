@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { SearchSlike } from "./SearchSlike";
 
 
 
@@ -8,7 +9,6 @@ const url = `http://localhost:1337/api/tipakcijes`;
 const modelUrl = 'http://localhost:1337/api/model-atms';
 const clientsUrl = 'http://localhost:1337/api/clients';
 const izvodjaciUrl = 'http://localhost:1337/api/izvodjacis';
-const statusUrl = 'http://localhost:1337/api/statuses';
 
 
 
@@ -18,6 +18,7 @@ const AddNalog = () => {
     tid: '',
     sn: '',
     clients: '',
+    pictures: '',
     adresa: '',
     izvodjacis: '',
     mikrolokacija: '',
@@ -53,7 +54,7 @@ const AddNalog = () => {
       opisRadova: nalog.opisRadova,
       model_atms: nalog.model_atms,
       tipakcijes: nalog.tipakcijes,
-
+      pictures: nalog.pictures
     }
 
 
@@ -122,6 +123,10 @@ const AddNalog = () => {
     };
     getIzvodjacistData();
   }, []);
+
+
+
+
 
 
   return (
@@ -256,20 +261,8 @@ const AddNalog = () => {
                       <option key={akc.id} value={akc.id}>{akc.attributes.tipakcije}</option>
                       ))}
             </select> 
-          {/*   <select
-              name='statuses'
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              value={statuses}
-              onChange={e => onInputChange(e)}
-
-          >
-            <option>Odaberi status</option>
-            { statusZahtjeva?.map((stat) => (
-                      <option key={stat.id} value={stat.id}>{stat.attributes.status}</option>
-                      ))}
-            </select>  */}
           </div>
-          
+          <SearchSlike />
           <button className="mt-1 w-full text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 disabled:opacity-40" disabled={!tid}>Kreiraj zahtjev</button>
         </form>
       </div>
