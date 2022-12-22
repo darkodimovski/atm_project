@@ -123,7 +123,7 @@ const EditNalog = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder='Unesi Tid'
               name='tid'
-              defaultValue={nalog?.attributes?.tid || ''}
+              defaultValue={nalog?.tid || ''}
               onChange={e => handleEdit(e)}
             />
           </div>
@@ -133,7 +133,7 @@ const EditNalog = () => {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder='Unesi Serijski Broj'
               name="sn"
-              defaultValue={nalog?.attributes?.sn || ''}
+              defaultValue={nalog?.sn || ''}
               onChange={e => handleEdit(e)}
             />
           </div>
@@ -145,12 +145,12 @@ const EditNalog = () => {
               
                     {nalog?.attributes?.clients?.data.map(cl => (
                       <option key={cl.id}>
-                        {cl.attributes.NAZIV_KLIJENTA}
+                        {cl.NAZIV_KLIJENTA}
                       </option>
                     ))}
               
               { client?.map((cli) => (
-                      <option key={cli.id} value={cli.id}>{cli.attributes.NAZIV_KLIJENTA}</option>
+                      <option key={cli.id} value={cli.id}>{cli.NAZIV_KLIJENTA}</option>
                     ))}  
                         
             </select>
@@ -163,7 +163,7 @@ const EditNalog = () => {
               
                  <option>odaberi</option>
                       { tplista?.map((cli) => (
-                      <option key={cli.id} value={cli.id}>{cli.attributes.naziv}</option>
+                      <option key={cli.id} value={cli.id}>{cli.naziv}</option>
                     ))}     
             </select>
           </div>
@@ -228,7 +228,7 @@ const EditNalog = () => {
           >
               <option>Izaberi model</option>
             { model?.map((name) => (
-                      <option key={name.id} value={name.id}>{name.attributes.model}</option>
+                      <option key={name.id} value={name.id}>{name.model}</option>
                       ))}
             </select>
           </div>
@@ -240,7 +240,7 @@ const EditNalog = () => {
           >
             <option>Odaberi akciju</option>
             { akcija?.map((akc) => (
-                      <option key={akc.id} value={akc.id}>{akc.attributes.tipakcije}</option>
+                      <option key={akc.id} value={akc.id}>{akc.tipakcije}</option>
                       ))}
             </select> 
           </div>
