@@ -4,7 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import { Link } from "react-router-dom";
 import { Box } from '@material-ui/core';
-
+import { CSVLink } from "react-csv";
 
 export default function DataTable() {
     const [listaNaloga, setListaNaloga] = useState([]);
@@ -14,8 +14,8 @@ export default function DataTable() {
       { field: 'tid', headerName: 'TID', width: 100 },
       { field: 'sn', headerName: 'Serijski broj', width: 130 },
       { field: 'mjesto', headerName: 'Mjesto', width: 130 },
-      { field: 'adresa', headerName: 'Adresa', width: 130 },
-      { field: 'mikrolokacija', headerName: 'Mikrolokacija', width: 130 },
+      { field: 'adresa', headerName: 'Adresa', width: 280 },
+      { field: 'mikrolokacija', headerName: 'Mikrolokacija', width: 280 },
       
       { field: 'client', headerName: 'Klijent', width: 100,
         valueGetter: (listaNaloga) => listaNaloga.row.clients[0].NAZIV_KLIJENTA
@@ -45,7 +45,6 @@ export default function DataTable() {
               <Link>
                 <Button color="error" variant="contained" size='small' onClick={() => deleteUser(params.row.id)}>Delete</Button>
               </Link>
-         
           </Box>
         )
       },
@@ -65,20 +64,42 @@ export default function DataTable() {
     loadNalog();
   };
 
-  console.log(listaNaloga)
+
+  const csvData = listaNaloga.map(item => ({
+    id: item.id,
+    tid: item.tid,
+    sn: item.sn,
+    mjesto: item.mjesto,
+    adresa: item.adresa,
+    mikrolokacija: item.mikrolokacija,
+    opisRadova: item.opisRadova,
+    klijent: item.clients.map(cl => cl.NAZIV_KLIJENTA),
+    izvođač: item.izvodjacis.map(izv => izv.naziv),
+    model: item.model_atms.map(model => model.model),
+    akcija: item.tipakcijes.map(akc => akc.tipakcije),
+    datumZahtjeva: item.datumZahtjeva
+  }))
+
+
+/*   console.log('csvdata', csvData)
+  console.log(listaNaloga) */
 
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <div style={{ height: 600, width: '100%' }}>
       <DataGrid
         rows={listaNaloga}
         columns={columns}
-        pageSize={3}
-        rowsPerPageOptions={[3]}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         sx={{
           fontSize: '15px'
+          
         }}
       />
+      <CSVLink data={csvData}>
+        <Button sx={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px'}} variant="contained">Export CSV</Button>
+      </CSVLink>
   </div>
   );
 }

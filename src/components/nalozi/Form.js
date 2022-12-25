@@ -1,7 +1,6 @@
 import React from 'react'
 import { 
     Grid, 
-    Typography, 
     Select, 
     MenuItem, 
     InputLabel, 
@@ -34,9 +33,6 @@ export const Form = ({
     return (
     <div>
         <form onSubmit={e => onSubmit(e)}>
-            <Typography variant="h6" gutterBottom>
-                Ispuni nalog
-            </Typography>
             <Grid container spacing={2} paddingX={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField
